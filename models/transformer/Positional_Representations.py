@@ -125,12 +125,21 @@ def BoxRelationalEmbedding(f_g, dim_g=64, wave_len=1000, trignometric_embedding=
 
     # cx.view(1,-1) transposes the vector cx, and so dim(delta_x) = (dim(cx), dim(cx))
     delta_x = cx - cx.view(batch_size, 1, -1)
-    delta_x = torch.clamp(torch.abs(delta_x / w), min=1e-3)
-    delta_x = torch.log(delta_x)
+    
+    # CRPE
+    # delta_x = torch.clamp(torch.abs(delta_x / w), min=1e-3)
+    # delta_x = torch.log(delta_x)
+    
+    # SRPE
+    delta_x = torch.sign(delta_x) * torch.log(1 + torch.abs(delta_x / w))
 
+    
     delta_y = cy - cy.view(batch_size, 1, -1)
-    delta_y = torch.clamp(torch.abs(delta_y / h), min=1e-3)
-    delta_y = torch.log(delta_y)
+    
+    # delta_y = torch.clamp(torch.abs(delta_y / h), min=1e-3)
+    # delta_y = torch.log(delta_y)
+    
+    delta_y = torch.sign(delta_y) * torch.log(1 + torch.abs(delta_y / h))
 
     delta_w = torch.log(w / w.view(batch_size, 1, -1))
     delta_h = torch.log(h / h.view(batch_size, 1, -1))
