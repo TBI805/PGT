@@ -3,7 +3,8 @@ from data import ImageDetectionsField, TextField, RawField
 from data import COCO, DataLoader
 import evaluation
 from evaluation import Cider, PTBTokenizer
-from models.transformer import Transformer, TransformerEncoder, TransformerDecoderLayer, ScaledDotProductAttention
+from models.transformer import Transformer, TransformerEncoder, TransformerDecoderLayer, ScaledDotProductAttention, \
+    TransformerEnsemble
 import torch
 from tqdm import tqdm
 import argparse
@@ -16,34 +17,6 @@ random.seed(1234)
 torch.manual_seed(1234)
 np.random.seed(1234)
 
-"""
-def predict_captions(model, dataloader, text_field):
-    import itertools
-    model.eval()
-    res = {}
-    gen = {}
-    gts = {}
-    with tqdm(desc='Evaluation', unit='it', total=len(dataloader)) as pbar:
-        for it, (images, caps_gt) in enumerate(iter(dataloader)):
-            images = images.to(device)
-            with torch.no_grad():
-                out, _ = model.beam_search(images, 20, text_field.vocab.stoi['<eos>'], 5, out_size=1)
-            caps_gen = text_field.decode(out, join_words=False)
-
-            for i, (gts_i, gen_i) in enumerate(zip(caps_gt, caps_gen)):
-                gen_i = ' '.join([k for k, g in itertools.groupby(gen_i)])
-                gen['%d_%d' % (it, i)] = [gen_i.strip(), ]
-                gts['%d_%d' % (it, i)] = gts_i
-            pbar.update()
-
-    gts = evaluation.PTBTokenizer.tokenize(gts)
-    gen = evaluation.PTBTokenizer.tokenize(gen)
-    scores, _ = evaluation.compute_scores(gts, gen, spice=args.spice)
-    if not args.only_test:
-        json.dump(res, open(args.dump_json, 'w'))
-    return scores
-"""
-
 def predict_captions(model, dataloader, text_field, cider, args):
     import itertools
     tokenizer_pool = multiprocessing.Pool()
@@ -52,12 +25,10 @@ def predict_captions(model, dataloader, text_field, cider, args):
     gen = {}
     gts = {}
     with tqdm(desc='Evaluation', unit='it', total=len(dataloader)) as pbar:
-        for it, ((detections, boxes), caps_gt) in enumerate(iter(dataloader)):
-            detections = detections.to(device)
-            shape = detections.shape
-            boxes = boxes.to(device)
+        for it, (images, caps_gt) in enumerate(iter(dataloader)):
+            images = images.to(device)
             with torch.no_grad():
-                out, _ = model.beam_search(detections, 20, text_field.vocab.stoi['<eos>'], 5, out_size=1, **{'boxes': boxes})
+                out, _ = model.beam_search(images, 20, text_field.vocab.stoi['<eos>'], 5, out_size=1)
             caps_gen = text_field.decode(out, join_words=False)
             caps_gen1 = text_field.decode(out)
             caps_gt1 = list(itertools.chain(*([c, ] * 1 for c in caps_gt)))
@@ -93,10 +64,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Transformer')
     parser.add_argument('--batch_size', type=int, default=10)
     parser.add_argument('--workers', type=int, default=8)
-    parser.add_argument('--features_path', type=str, default='coco_all_align.hdf5')
-    parser.add_argument('--annotation_folder', type=str, default='annotations')
-    parser.add_argument('--exp_name', type=str, default='Transformer_BoxRelation')
-    parser.add_argument('--spice', action='store_true', default=True)
+    parser.add_argument('--features_path', type=str, default='/home/tbi/Documents/Features/X101_grid_feats_coco_trainval.hdf5')
+    parser.add_argument('--annotation_folder', type=str, default='/home/tbi/Documents/annotations')
+    parser.add_argument('--exp_name', type=str, default='PGT')
+    parser.add_argument('--spice', action='store_true', default=False)
     parser.add_argument('--only_test', action='store_true', default=False)
     parser.add_argument('--dump_json', type=str, default='gen_res.json')
     parser.add_argument('--box_embed', action='store_true', default=True)
@@ -105,7 +76,7 @@ if __name__ == '__main__':
     print('Transformer Evaluation')
 
     # Pipeline for image regions
-    image_field = ImageDetectionsField(detections_path=args.features_path, max_detections=50, load_in_tmp=False)
+    image_field = ImageDetectionsField(detections_path=args.features_path, max_detections=49, load_in_tmp=False)
 
     # Pipeline for text
     text_field = TextField(init_token='<bos>', eos_token='<eos>', lower=True, tokenize='spacy',
@@ -122,9 +93,9 @@ if __name__ == '__main__':
     # Model and dataloaders
     encoder = TransformerEncoder(4, 0, attention_module=ScaledDotProductAttention)
     decoder = TransformerDecoderLayer(len(text_field.vocab), 54, 4, text_field.vocab.stoi['<pad>'])
-    model = Transformer(text_field.vocab.stoi['<bos>'], encoder, decoder, args=args).to(device)
+    model = Transformer(text_field.vocab.stoi['<bos>'], encoder, decoder).to(device)
 
-    data = torch.load("saved_models/Transformer_BoxRelation_best_test.pth")
+    data = torch.load('saved_models/PGT_best_test.pth')
     model.load_state_dict(data['state_dict'])
 
     dict_dataset_test = test_dataset.image_dictionary({'image': image_field, 'text': RawField()})
