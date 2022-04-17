@@ -68,8 +68,8 @@ python train.py --exp_name PGT --batch_size 40 --head 4 --features_path /path/to
 
 
 #### Acknowledgements
-Thanks Cornia _et.al_ for their open source code [M2 transformer](https://github.com/aimagelab/meshed-memory-transformer),
-       Zhang _et.al_ for their open source code [RSTNet](https://github.com/zhangxuying1004/RSTNet), 
-       Luo _et.al_ for their open source code [DLCT](https://github.com/luo3300612/image-captioning-DLCT), on which our implements are based.
+Thanks Cornia _et.al_ [M2 transformer](https://github.com/aimagelab/meshed-memory-transformer),
+       Zhang _et.al_ [RSTNet](https://github.com/zhangxuying1004/RSTNet), and
+       Luo _et.al_ [DLCT](https://github.com/luo3300612/image-captioning-DLCT) for their open source code.
        
 Thanks Jiang _et.al_ for the significant discovery in visual representation [2], which has given us a lot of inspiration.
