@@ -149,11 +149,11 @@ def train_scst(model, dataloader, optim, cider, text_field):
 if __name__ == '__main__':
     device = torch.device('cuda')
     parser = argparse.ArgumentParser(description='Transformer')
-    parser.add_argument('--exp_name', type=str, default='6_8_519')
+    parser.add_argument('--exp_name', type=str, default='PGT')
     parser.add_argument('--batch_size', type=int, default=40)
     parser.add_argument('--workers', type=int, default=8)
     parser.add_argument('--head', type=int, default=4)
-    parser.add_argument('--resume_last', action='store_true', default=False)
+    parser.add_argument('--resume_last', action='store_true')
     parser.add_argument('--resume_best', action='store_true')
 
     parser.add_argument('--features_path', type=str, default='/home/tbi/Documents/Features/X101_grid_feats_coco_trainval.hdf5')
@@ -162,7 +162,7 @@ if __name__ == '__main__':
     parser.add_argument('--logs_folder', type=str, default='tensorboard_logs')
     parser.add_argument('--xe_least', type=int, default=15)
     parser.add_argument('--xe_most', type=int, default=20)
-    parser.add_argument('--refine_epoch_rl', type=int, default=30)
+    parser.add_argument('--refine_epoch_rl', type=int, default=29)
 
     parser.add_argument('--xe_base_lr', type=float, default=0.0001)
     parser.add_argument('--rl_base_lr', type=float, default=5e-6)
@@ -224,12 +224,12 @@ if __name__ == '__main__':
         print("rl_s:", s)
         if s <= refine_epoch:
             lr = args.rl_base_lr
+        elif s <= refine_epoch + 10:
+            lr = args.rl_base_lr * 0.2
         elif s <= refine_epoch + 20:
-            lr = args.rl_base_lr * 0.1
-        elif s <= refine_epoch + 40:
-            lr = args.rl_base_lr * 0.1 * 0.1
+            lr = args.rl_base_lr * 0.2 * 0.2
         else:
-            lr = args.rl_base_lr * 0.1 * 0.1 * 0.1
+            lr = args.rl_base_lr * 0.2 * 0.2 * 0.2
         return lr
 
 
