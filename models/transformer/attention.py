@@ -91,7 +91,7 @@ class ScaledDotProductWithBoxAttention(nn.Module):
 
         self.dropout = nn.Dropout(dropout)
 
-        self.group_norm = nn.GroupNorm(h // 2, h)
+        self.group_norm = nn.GroupNorm(h // 2, h, affine=False)
 
         self.d_model = d_model
         self.d_k = d_k
@@ -150,7 +150,7 @@ class ScaledDotProductWithBoxAttention(nn.Module):
         w_g = box_relation_embed_matrix
         w_a = att
 
-        w_mn = torch.log(torch.clamp(w_g, min=1e-6)) + w_a
+        w_mn = torch.log(torch.clamp(w_g, min=1e-3)) + w_a
         w_mn = torch.softmax(w_mn, -1)  ## bs * 8 * r * r
         att = self.dropout(w_mn)
 
