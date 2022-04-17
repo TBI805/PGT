@@ -1,5 +1,5 @@
 # Position-Guided Transformer for Image Captioning
-This repository contains the reference code for the paper _[Position-Guided Transformer for Image Captioning]
+This repository contains the reference code for the paper _Position-Guided Transformer for Image Captioning_.
 
 <p align="center">
   <img src="images/PGT.png" alt="Position-Guided Transformer" width="960"/>
