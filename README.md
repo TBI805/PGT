@@ -1,6 +1,5 @@
-# M²: Meshed-Memory Transformer
+# Position-Guided Transformer for Image Captioning
 This repository contains the reference code for the paper _[Position-Guided Transformer for Image Captioning]
-Please cite with the following BibTeX:
 
 <p align="center">
   <img src="images/PGT.png" alt="Position-Guided Transformer" width="320"/>
