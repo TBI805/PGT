@@ -2,7 +2,7 @@
 This repository contains the reference code for the paper _[Position-Guided Transformer for Image Captioning]
 
 <p align="center">
-  <img src="images/PGT.png" alt="Position-Guided Transformer" width="320"/>
+  <img src="images/PGT.png" alt="Position-Guided Transformer" width="640"/>
 </p>
 
 ## Environment setup
