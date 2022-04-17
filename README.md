@@ -29,7 +29,7 @@ Then, visual features are computed with the code provided by [2]. To reproduce o
 
 
 ## Evaluation
-To reproduce the results reported in our paper, download the pretrained model file [meshed_memory_transformer.pth](https://drive.google.com/file/d/1naUSnVqXSMIdoiNz_fjqKwh9tXF7x8Nx/view?usp=sharing) and place it in the code folder.
+To reproduce the results reported in our paper, download the pretrained model file [PGT.pth](https://pan.baidu.com/s/1T33FykGiOLv0w5HIFCZxLQ) (Acess code:nsc8) and place it in the code folder.
 
 Run `python test.py` using the following arguments:
 
