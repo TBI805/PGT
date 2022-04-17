@@ -72,4 +72,4 @@ Thanks Cornia _et.al_ [M2 transformer](https://github.com/aimagelab/meshed-memor
        Zhang _et.al_ [RSTNet](https://github.com/zhangxuying1004/RSTNet), and
        Luo _et.al_ [DLCT](https://github.com/luo3300612/image-captioning-DLCT) for their open source code.
        
-Thanks Jiang _et.al_ for the significant discovery in visual representation [2], which has given us a lot of inspiration.
+Thanks Jiang _et.al_ for the significant discovery in visual representation [2].
