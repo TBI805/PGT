@@ -64,9 +64,5 @@ For example, to train our model with the parameters used in our experiments, use
 python train.py --exp_name m2_transformer --batch_size 50 --m 40 --head 8 --warmup 10000 --features_path /path/to/features --annotation_folder /path/to/annotations
 ```
 
-<p align="center">
-  <img src="images/results.png" alt="Sample Results" width="850"/>
-</p>
-
 #### References
 [1] P. Anderson, X. He, C. Buehler, D. Teney, M. Johnson, S. Gould, and L. Zhang. Bottom-up and top-down attention for image captioning and visual question answering. In _Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition_, 2018.
