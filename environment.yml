@@ -21,9 +21,9 @@ dependencies:
   - libgfortran-ng=7.3.0=hdf63c60_0
   - libstdcxx-ng=9.1.0=hdf63c60_0
   - mkl=2021.4.0=h06a4308_640
-  - mkl-service=2.3.0=py36he904b0f_0
-  - mkl_fft=1.0.15=py36ha843d7b_0
-  - mkl_random=1.1.0=py36hd6b4f25_0
+  - mkl-service=2.4.0=py38h7f8727e_0
+  - mkl_fft=1.3.1=py38hd3c417c_0
+  - mkl_random=1.2.2=py38h51133e4_0
   - msgpack-numpy=0.4.4.3=py_0
   - msgpack-python=0.5.6=py36h6bb024c_1
   - ncurses=6.1=he6710b0_1
