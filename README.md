@@ -21,15 +21,17 @@ Note: Python 3.6 is required to run our code.
 
 
 ## Data preparation
-To run the code, annotations and visual features for the COCO dataset are needed.  
+To run the code, annotations, evaluation tools and visual features for the COCO dataset are needed.  
 
-First, most annotations have been prepared by [1], please download [annotations.zip](https://drive.google.com/file/d/1i8mqKFKhqvBr8kEp3DbIh9-9UNAfKGmE/view?usp=sharing) and rename the extracted folder as annotations, please download [image_info_test2014.json](http://images.cocodataset.org/annotations/image_info_test2014.zip) and put it into annotations. 
+Firstly, most annotations have been prepared by [1], please download [annotations.zip](https://drive.google.com/file/d/1i8mqKFKhqvBr8kEp3DbIh9-9UNAfKGmE/view?usp=sharing) and rename the extracted folder as annotations, please download [image_info_test2014.json](http://images.cocodataset.org/annotations/image_info_test2014.zip) and put it into annotations. 
 
-Then, visual features are computed with the code provided by [2]. To reproduce our result, please download the COCO features file in [ResNeXt_101/trainval](https://pan.baidu.com/s/1s4B7JCrIk7CrQoFx5WOgjQ) (Acess code:bnvu) and extract it as X101_grid_feats_coco_trainval.hdf5.
+Secondly, please download the [evaluation tools](https://pan.baidu.com/s/1vP7Mt1gLLvn4HNxxOvSYxg) (Access code: xh6e) and extarct it in the project root directory.
+
+Then, visual features are computed with the code provided by [2]. To reproduce our result, please download the COCO features file in [ResNeXt_101/trainval](https://pan.baidu.com/s/1s4B7JCrIk7CrQoFx5WOgjQ) (Access code:bnvu) and extract it as X101_grid_feats_coco_trainval.hdf5.
 
 
 ## Evaluation
-To reproduce the results reported in our paper, download the pretrained model file [PGT.pth](https://pan.baidu.com/s/1T33FykGiOLv0w5HIFCZxLQ) (Acess code:nsc8) and place it in the code folder.
+To reproduce the results reported in our paper, download the pretrained model file [PGT.pth](https://pan.baidu.com/s/1T33FykGiOLv0w5HIFCZxLQ) (Access code:nsc8) and place it in the code folder.
 
 Run `python test.py` using the following arguments:
 
