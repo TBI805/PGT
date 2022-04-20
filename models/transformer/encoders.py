@@ -20,9 +20,9 @@ class EncoderLayer(nn.Module):
 
     def forward(self, queries, keys, values, relative_geometry_weights, attention_mask=None, attention_weights=None, pos=None):
 
-        grid_pos = pos
+        grids_pos = pos
         v = values + pos
-        att = self.mhatt(queries, keys, v, grid_pos, relative_geometry_weights, attention_mask, attention_weights)
+        att = self.mhatt(queries, keys, v, grids_pos, relative_geometry_weights, attention_mask, attention_weights)
         att = self.lnorm(queries + self.dropout(att))
         ff = self.pwff(att)
         return ff
