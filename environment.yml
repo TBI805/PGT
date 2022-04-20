@@ -14,13 +14,13 @@ dependencies:
   - cython=0.29.14=py36he6710b0_0
   - dill=0.2.9=py36_0
   - idna=2.8=py36_0
-  - intel-openmp=2019.5=281
+  - intel-openmp=2021.4.0=h06a4308_3561
   - libedit=3.1.20181209=hc058e9b_0
   - libffi=3.2.1=hd88cf55_4
   - libgcc-ng=9.1.0=hdf63c60_0
   - libgfortran-ng=7.3.0=hdf63c60_0
   - libstdcxx-ng=9.1.0=hdf63c60_0
-  - mkl=2019.5=281
+  - mkl=2021.4.0=h06a4308_640
   - mkl-service=2.3.0=py36he904b0f_0
   - mkl_fft=1.0.15=py36ha843d7b_0
   - mkl_random=1.1.0=py36hd6b4f25_0
@@ -77,8 +77,8 @@ dependencies:
     - pytz==2019.3
     - regex==2017.4.5
     - tensorboard==1.14.0
-    - torch==1.1.0
-    - torchvision==0.3.0
+    - torch==1.8.0+cu111
+    - torchvision==0.9.0+cu111
     - tqdm==4.32.2
     - ujson==1.35
     - werkzeug==0.16.0
